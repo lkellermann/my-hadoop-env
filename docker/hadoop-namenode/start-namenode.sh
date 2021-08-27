@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Just testing:
-CLUSTER_NAME="hadoop-namenode"
 NAME_DIR=$(echo "$HDFS_CONF_DFS_NAMENODE_DATA_DIR" | perl -pe 's#file://##')
 
 if [ ! -d "$NAME_DIR" ]; then
@@ -16,9 +15,9 @@ fi
 
 if [ "$(ls -A "$NAME_DIR")" == "" ]; then
     echo "Formatting namenode directory: $NAME_DIR"
-    "$HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode -format $CLUSTER_NAME"
+    #    echo "$HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode -format $CLUSTER_NAME"
+    "$HADOOP_HOME"/bin/hdfs --config "$HADOOP_CONF_DIR" namenode -format "$CLUSTER_NAME"
 fi
 
-"$HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode"
-
-/usr/sbin/sshd -D
+"$HADOOP_HOME/bin/hdfs" --config "$HADOOP_CONF_DIR" namenode # Keeps namenode up
+# /usr/sbin/sshd -D
