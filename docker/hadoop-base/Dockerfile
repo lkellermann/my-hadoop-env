@@ -7,7 +7,7 @@ LABEL maintainer="lkellermann"
 ENV HADOOP_VERSION=3.1.1
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=/etc/hadoop
-ENV USER=hadoop
+ENV USER=root
 ENV PATH ${HADOOP_HOME}/bin/:$PATH
 ENV TZ=America/Sao_Paulo
 ENV JAVA_HOME=/etc/alternatives/jre_1.8.0
@@ -32,6 +32,8 @@ RUN yum autoremove
 
 #Change the root password to root
 RUN echo "root:root"| chpasswd
+#RUN useradd hadoop 
+#RUN echo "hadoop:hadoop"| chpasswd
 
 RUN mkdir -p /opt/hadoop
 RUN wget -c -O hadoop.tar.gz https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
